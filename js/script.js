@@ -1,10 +1,6 @@
 // variables
 var dropArea = document.getElementById('dropArea');
-var canvas = document.querySelector('canvas');
-var context = canvas.getContext('2d');
-var count = document.getElementById('count');
-var destinationUrl = document.getElementById('url');
-var result = document.getElementById('result');
+var destinationUrl = "upload.php";
 var list = [];
 var totalSize = 0;
 var totalProgress = 0;
@@ -16,22 +12,6 @@ var totalProgress = 0;
     function initHandlers() {
         dropArea.addEventListener('drop', handleDrop, false);
         dropArea.addEventListener('dragover', handleDragOver, false);
-    }
-
-    // draw progress
-    function drawProgress(progress) {
-        context.clearRect(0, 0, canvas.width, canvas.height); // clear context
-
-        context.beginPath();
-        context.strokeStyle = '#4B9500';
-        context.fillStyle = '#4B9500';
-        context.fillRect(0, 0, progress * 500, 20);
-        context.closePath();
-
-        // draw progress (as text)
-        context.font = '16px Verdana';
-        context.fillStyle = '#000';
-        context.fillText('Progress: ' + Math.floor(progress*100) + '%', 50, 15);
     }
 
     // drag over
@@ -56,9 +36,8 @@ var totalProgress = 0;
 
         totalSize = 0;
         totalProgress = 0;
-        result.textContent = '';
 
-        for (var i = 0; i < filelist.length && i < 5; i++) {
+        for (var i = 0; i < filelist.length; i++) {
             list.push(filelist[i]);
             totalSize += filelist[i].size;
         }
@@ -68,14 +47,8 @@ var totalProgress = 0;
     // on complete - start next file
     function handleComplete(size) {
         totalProgress += size;
-        drawProgress(totalProgress / totalSize);
+        $(".gallery_element").addClass(gallery_mode);
         uploadNext();
-    }
-
-    // update progress
-    function handleProgress(event) {
-        var progress = totalProgress + event.loaded;
-        drawProgress(progress / totalSize);
     }
 
     // upload file
@@ -83,36 +56,35 @@ var totalProgress = 0;
 
         // prepare XMLHttpRequest
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', destinationUrl.value);
+        xhr.open('POST', destinationUrl);
         xhr.onload = function() {
-            result.innerHTML += this.responseText;
+            //dropArea.innerHTML += this.responseText;
+            $(dropArea).append(this.responseText);
             handleComplete(file.size);
         };
         xhr.onerror = function() {
-            result.textContent = this.responseText;
+            //dropArea.textContent += this.responseText;
             handleComplete(file.size);
         };
         xhr.upload.onprogress = function(event) {
-            handleProgress(event);
+            //handleProgress(event);
         }
         xhr.upload.onloadstart = function(event) {
         }
 
         // prepare FormData
         var formData = new FormData();
-        formData.append('myfile', file);
+        formData.append('newfile', file);
         xhr.send(formData);
     }
 
     // upload next file
     function uploadNext() {
         if (list.length) {
-            count.textContent = list.length - 1;
-            dropArea.className = 'uploading';
-
+            
             var nextFile = list.shift();
-            if (nextFile.size >= 262144) { // 256kb
-                result.innerHTML += '<div class="f">Too big file (max filesize exceeded)</div>';
+            if (nextFile.size >= 10485760) { // 3mb
+                //$(dropArea).append('<div class="f">Too big file (max filesize exceeded)</div>');
                 handleComplete(nextFile.size);
             } else {
                 uploadFile(nextFile, status);
