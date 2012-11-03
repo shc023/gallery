@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL); // or E_STRICT
+ini_set("display_errors",1);
+ini_set("memory_limit","1024M");
 
 // set error reporting level
 if (version_compare(phpversion(), '5.3.0', '>=') == 1)
