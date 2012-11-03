@@ -2,6 +2,11 @@ html, body{
     margin: 0;
     padding: 0;
 }
+body{
+    
+    background-color: #EEEEEE;
+    padding: 30px;
+}
 .container {
     overflow:hidden;
     width:960px;
@@ -55,23 +60,22 @@ html, body{
     width: 400px;
 }
 #dropArea {
-    background-color: #DDDDDD;
-    border: 3px dashed #000000;
+    padding: 30px;
+    min-width: 800px;
+    background-color: #EEE;
     font-size: large;
     font-weight: bold;
-    height: 95%;
     width: auto;
-    margin: 10px;
     position: relative;
     text-align: center;
-    overflow: scroll;
 }
+/*
 #dropArea.hover {
     background-color: #CCCCCC;
 }
 #dropArea.uploading {
     background: #EEEEEE url(loading.gif) center 30% no-repeat;
-}
+}*/
 #result .s, #result .f {
     font-size: 12px;
     margin-bottom: 10px;
@@ -87,13 +91,19 @@ html, body{
 #result .f {
     background-color: #fcc577;
 }
-.gallery_element{
-    display: inline-block;
+.gallery_element {
+   padding: 7px;
+   background: white;
+   box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 }
 .gallery_element > img{
    width: 100%;
-   height: 100%;
+   width: 200px;
 }
+/*.gallery_element{
+    display: inline-block;
+}
+
 .gallery_square{
     width: 200px;
     height: 200px;
@@ -105,7 +115,7 @@ html, body{
     margin: auto;
     margin-top: 5px;
     margin-bottom: 5px;
-}
+}*/
 #gallery_instruction{
     position: absolute;
     top: 0;
