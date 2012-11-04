@@ -1,4 +1,7 @@
 <?php
+
+require_once("createThumb.php");
+
 error_reporting(E_ALL); // or E_STRICT
 ini_set("display_errors",1);
 ini_set("memory_limit","1024M");
@@ -19,7 +22,7 @@ if (isset($_FILES['newfile'])) {
     $sFileType = $_FILES['newfile']['type'];
     $sFileSize = bytesToSize1024($_FILES['myfile']['size'], 1);
 
-    $allowedExts = array("jpg", "JPG", "jpeg", "JPEG", "gif", "GIF", "png", "PNG");
+    $allowedExts = array("jpg", "JPG", "jpeg", "JPEG", "png", "PNG");
     $allowedTypes = array("image/gif", "image/jpeg", "image/png", "image/pjpeg");
     $extension = end(explode(".", $_FILES["newfile"]["name"]));
     if ( ($_FILES["newfile"]["size"] < 10485760) && in_array($extension, $allowedExts))
@@ -32,6 +35,9 @@ if (isset($_FILES['newfile'])) {
         else
         {
             $path = "images/" . $_FILES["newfile"]["name"];
+            $thumbPath = "thumbs/" . $_FILES["newfile"]["name"];
+            
+            
             if (file_exists($path))
             {
                 //echo "ERROR: ".$_FILES["newfile"]["name"] . " already exists. ";
@@ -40,7 +46,14 @@ if (isset($_FILES['newfile'])) {
             else
             {
                 move_uploaded_file($_FILES["newfile"]["tmp_name"], $path);
-                //echo "Stored in: ".$path;
+                    //echo "Stored in: ".$path;
+                    
+                $size = getimagesize($path);
+                $width = $size[0];
+                $thumbWidth = min($width, 200);
+                    
+                
+                createThumb($path, $thumbPath, $extension, $thumbWidth);
             }
         }
     }
@@ -51,8 +64,8 @@ if (isset($_FILES['newfile'])) {
     }
     
     echo <<<EOF
-<a class="gallery_element" href="#">
-    <img src="{$path}">
+<a class="gallery_element" rel="group" href="{$path}">
+    <img src="{$thumbPath}">
 </a>
 EOF;
 } 

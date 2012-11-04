@@ -52,12 +52,14 @@ var totalProgress = 0;
             }
         );
     }
+    
     // on complete - start next file
     function handleComplete(size) {
         totalProgress += size;
         $(".gallery_element").addClass(gallery_mode);
  
         wookmarkCall();
+        $(".gallery_element").fancybox();
 
         uploadNext();
     }
