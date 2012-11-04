@@ -7,12 +7,7 @@
 </head>
 <body>
     <div id="dropArea">
-        <div id="gallery_instruction">
-        <!--
-            <a href="#" id="to_square">to square</a><br>
-            <a href="#" id="to_rect">to rect</a>
-        -->
-        </div>
+        <div id="gallery_instruction"></div>
     </div>
     
     <script src="js/gallery.js"></script>

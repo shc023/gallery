@@ -64,7 +64,7 @@ if (isset($_FILES['newfile'])) {
     }
     
     echo <<<EOF
-<a class="gallery_element" rel="group" href="{$path}">
+<a class="gallery_element fancybox" rel="group" href="{$path}">
     <img src="{$thumbPath}">
 </a>
 EOF;

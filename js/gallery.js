@@ -59,7 +59,7 @@ var totalProgress = 0;
         $(".gallery_element").addClass(gallery_mode);
  
         wookmarkCall();
-        $(".gallery_element").fancybox();
+        $(".fancybox").fancybox();
 
         uploadNext();
     }
@@ -94,10 +94,21 @@ var totalProgress = 0;
         xhr.send(formData);
     }
 
+    function progressMessage(){
+        if (list.length) {
+            $("#gallery_instruction").html("Uploading.... "+list.length+" more files left.");
+            $("#gallery_instruction").show();
+        }
+        else{
+            $("#gallery_instruction").hide();
+        }
+    }
+    
     // upload next file
     function uploadNext() {
+        progressMessage();
+        
         if (list.length) {
-            
             var nextFile = list.shift();
             if (nextFile.size >= 10485760) { // 3mb
                 //$(dropArea).append('<div class="f">Too big file (max filesize exceeded)</div>');
@@ -107,6 +118,7 @@ var totalProgress = 0;
             }
         } else {
             dropArea.className = '';
+            
         }
     }
 

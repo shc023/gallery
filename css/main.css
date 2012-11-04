@@ -117,10 +117,14 @@ body{
     margin-bottom: 5px;
 }*/
 #gallery_instruction{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    min-width: 800;
     width: 100%;
-    background: rgba(255,255,255,0.8);
+    top:0;
+    left:0;
+    padding:10px;
+    background: rgba(255,255,180,0.95);
     color:black;
+    z-index: 900;
+    display: none;
 }
