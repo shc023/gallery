@@ -1,2 +1,2 @@
 <?php
-echo "<pre>"; var_dump(gd_info()); echo "</pre>";
+php_info();
