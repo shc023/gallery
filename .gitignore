@@ -7,3 +7,4 @@ vendor/
 .idea/
 configs/config.php
 composer.phar
+app/SymfonyRequirements.php
