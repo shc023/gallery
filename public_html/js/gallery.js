@@ -45,10 +45,10 @@ var totalProgress = 0;
     }
 
     function wookmarkCall(){
-        $('.gallery_element').wookmark(
+        jQuery('.gallery_element').wookmark(
             {
                 offset: 10,
-                container: $("#dropArea")
+                container: jQuery("#dropArea")
             }
         );
     }
@@ -56,17 +56,17 @@ var totalProgress = 0;
     // on complete - start next file
     function handleComplete(size) {
         totalProgress += size;
-        $(".gallery_element").addClass(gallery_mode);
+        jQuery(".gallery_element").addClass(gallery_mode);
  
         wookmarkCall();
-        $(".fancybox").fancybox();
+        jQuery(".fancybox").fancybox();
 
         uploadNext();
     }
     
     window.onresize = function(event) {
         wookmarkCall();
-    }
+    };
     // upload file
     function uploadFile(file, status) {
 
@@ -84,9 +84,9 @@ var totalProgress = 0;
         };
         xhr.upload.onprogress = function(event) {
             //handleProgress(event);
-        }
+        };
         xhr.upload.onloadstart = function(event) {
-        }
+        };
 
         // prepare FormData
         var formData = new FormData();
@@ -95,12 +95,13 @@ var totalProgress = 0;
     }
 
     function progressMessage(){
+        var gallery = jQuery("#gallery_instruction");
         if (list.length) {
-            $("#gallery_instruction").html("Uploading.... "+list.length+" more files left.");
-            $("#gallery_instruction").show();
+            gallery.html("Uploading.... "+list.length+" more files left.");
+            gallery.show();
         }
         else{
-            $("#gallery_instruction").hide();
+            gallery.hide();
         }
     }
     
@@ -118,7 +119,6 @@ var totalProgress = 0;
             }
         } else {
             dropArea.className = '';
-            
         }
     }
 
