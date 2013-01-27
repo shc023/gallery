@@ -46,16 +46,15 @@ class Uploader
                     }
                 }
             } else {
-                echo "Invalid file:<br>";
-                exit;
+                return "Invalid file:<br>";
             }
 
-            echo <<<EOF
+            return <<<EOF
 <a class="gallery_element fancybox" rel="group" href="{$path}">
     <img src="{$thumbPath}">
 </a>
 EOF;
         }
-
+        return null;
     }
 }

@@ -27,9 +27,9 @@ $app->get('/info', function () use ($app) {
 });
 
 // Handle an upload!
-$app->put('/upload', function() use ($app){
+$app->post('/upload', function() use ($app){
     $uploader = new schen\Utils\Uploader();
-    $uploader->upload();
+    echo $uploader->upload();
 });
 
 $app->run();
