@@ -26,4 +26,10 @@ $app->get('/info', function () use ($app) {
     echo phpinfo();
 });
 
+// Handle an upload!
+$app->put('/upload', function() use ($app){
+    $uploader = new schen\Utils\Uploader();
+    $uploader->upload();
+});
+
 $app->run();
