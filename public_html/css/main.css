@@ -100,22 +100,7 @@ body{
    width: 100%;
    width: 200px;
 }
-/*.gallery_element{
-    display: inline-block;
-}
 
-.gallery_square{
-    width: 200px;
-    height: 200px;
-    margin: 5px;
-}
-.gallery_rect{
-    width:95%;
-    height: 200px;
-    margin: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}*/
 #gallery_instruction{
     position: fixed;
     min-width: 800;
