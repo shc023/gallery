@@ -4,57 +4,113 @@ namespace schen\Utils;
 
 class Uploader
 {
+    private $allowedExtensions = array("jpg", "JPG", "jpeg", "JPEG", "png", "PNG");
+    private $allowedMimes = array("image/gif", "image/jpeg", "image/png", "image/pjpeg");
+
+    private $web_root = null;
+    private $image_dir = null;
+    private $thumb_dir = null;
+
+    function __construct($web_root, $image_dir, $thumb_dir)
+    {
+        $this->web_root = $web_root;
+        $this->image_dir = $image_dir;
+        $this->thumb_dir = $thumb_dir;
+    }
+
+    /**
+     * Get the difference of paths e.g.
+     *
+     * /path
+     * /path/to/something
+     *
+     * Returns /to/something
+     *
+     * @param $outer string The outer, less specific path
+     * @param $inner string The inner path
+     * @return string
+     */
+    public function pathDiff($outer, $inner)
+    {
+        $outer_len = strlen($outer);
+
+        if (substr($inner, 0, $outer_len) === $outer) {
+            return substr($inner, $outer_len);
+        }
+
+        return '';
+    }
 
     public function bytesToSize1024($bytes, $precision = 2)
     {
         $unit = array('B', 'KB', 'MB');
-        return @round($bytes / pow(1024, ($i = floor(log($bytes, 1024)))), $precision) . ' ' . $unit[$i];
+        return @round($bytes / pow(1024, ($i = (int)floor(log($bytes, 1024)))), $precision) . ' ' . $unit[$i];
     }
 
     public function upload()
     {
         if (isset($_FILES['newfile'])) {
-            $sFileName = $_FILES['newfile']['name'];
-            $sFileType = $_FILES['newfile']['type'];
-            $sFileSize = $this->bytesToSize1024($_FILES['myfile']['size'], 1);
 
-            $allowedExts = array("jpg", "JPG", "jpeg", "JPEG", "png", "PNG");
-            $allowedTypes = array("image/gif", "image/jpeg", "image/png", "image/pjpeg");
-            $extension = end(explode(".", $_FILES["newfile"]["name"]));
-            if (($_FILES["newfile"]["size"] < 10485760) && in_array($extension, $allowedExts)) {
+            $source_name = $_FILES['newfile']['name'];
+            $source_tmp_path = $_FILES["newfile"]["tmp_name"];
+            $source_type = $_FILES['newfile']['type'];
+            $source_size = $this->bytesToSize1024($_FILES['myfile']['size'], 1);
+            $source_ext = end(explode(".", $source_name));
+
+            if (($source_size < 10485760) && in_array($source_ext, $this->allowedExtensions)) {
+
                 if ($_FILES["newfile"]["error"] > 0) {
-                    echo "ERROR: " . $_FILES["newfile"]["error"] . "<br />";
-                    exit;
+
+                    return "ERROR: " . $_FILES["newfile"]["error"];
+
                 } else {
-                    $path = "images/" . $_FILES["newfile"]["name"];
-                    $thumbPath = "thumbs/" . $_FILES["newfile"]["name"];
 
+                    $target_path = $this->getImageDir() . '/' . $source_name;
+                    $target_thumb_path = $this->getThumbDir() . '/' . $source_name;
 
-                    if (file_exists($path)) {
-                        //echo "ERROR: ".$_FILES["newfile"]["name"] . " already exists. ";
-                        //exit;
+                    if (file_exists($target_path)) {
+                        return "ERROR: " . $source_name . " already exists. ";
                     } else {
-                        move_uploaded_file($_FILES["newfile"]["tmp_name"], $path);
-                        //echo "Stored in: ".$path;
+                        move_uploaded_file($source_tmp_path, $target_path);
 
-                        $size = getimagesize($path);
+                        $size = getimagesize($target_path);
                         $width = $size[0];
                         $thumbWidth = min($width, 200);
 
                         $image = new Image();
-                        $image->createThumb($path, $thumbPath, $extension, $thumbWidth);
+                        $image->createThumb($target_path, $target_thumb_path, $source_ext, $thumbWidth);
                     }
                 }
             } else {
-                return "Invalid file:<br>";
+                return 'Invalid file';
             }
 
-            return <<<EOF
-<a class="gallery_element fancybox" rel="group" href="{$path}">
-    <img src="{$thumbPath}">
-</a>
-EOF;
+            $image_url = $this->pathDiff($this->web_root, $target_path);
+            $thumb_url = $this->pathDiff($this->web_root, $target_thumb_path);
+
+            return '<a class="gallery_element fancybox" rel="group" href="' . $image_url . '"><img src="' . $thumb_url . '"></a>';
         }
+
         return null;
+    }
+
+    public function setImageDir($image_dir)
+    {
+        $this->image_dir = $image_dir;
+    }
+
+    public function getImageDir()
+    {
+        return $this->image_dir;
+    }
+
+    public function setThumbDir($thumb_dir)
+    {
+        $this->thumb_dir = $thumb_dir;
+    }
+
+    public function getThumbDir()
+    {
+        return $this->thumb_dir;
     }
 }
