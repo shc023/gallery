@@ -27,7 +27,7 @@ class Uploader
                     exit;
                 } else {
                     $path = "../../../public_html/images/" . $_FILES["newfile"]["name"];
-                    $thumbPath = "../../../public_htmlthumbs/" . $_FILES["newfile"]["name"];
+                    $thumbPath = "../../../public_html/thumbs/" . $_FILES["newfile"]["name"];
 
 
                     if (file_exists($path)) {
