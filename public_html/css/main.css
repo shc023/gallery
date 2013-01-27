@@ -4,7 +4,7 @@ html, body{
 }
 body{
     
-    background-color: #EEEEEE;
+    background-color: #DDD;
     padding: 30px;
 }
 .container {
@@ -69,10 +69,11 @@ body{
     position: relative;
     text-align: center;
 }
-/*
+
 #dropArea.hover {
-    background-color: #CCCCCC;
+    background-color: #FFF;
 }
+/*
 #dropArea.uploading {
     background: #EEEEEE url(loading.gif) center 30% no-repeat;
 }*/

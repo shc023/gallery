@@ -34,8 +34,8 @@ if (isset($_FILES['newfile'])) {
         }
         else
         {
-            $path = "images/" . $_FILES["newfile"]["name"];
-            $thumbPath = "thumbs/" . $_FILES["newfile"]["name"];
+            $path = "../images/" . $_FILES["newfile"]["name"];
+            $thumbPath = "../thumbs/" . $_FILES["newfile"]["name"];
             
             
             if (file_exists($path))
