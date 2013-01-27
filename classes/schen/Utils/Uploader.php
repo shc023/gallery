@@ -26,8 +26,8 @@ class Uploader
                     echo "ERROR: " . $_FILES["newfile"]["error"] . "<br />";
                     exit;
                 } else {
-                    $path = "../../../public_html/images/" . $_FILES["newfile"]["name"];
-                    $thumbPath = "../../../public_html/thumbs/" . $_FILES["newfile"]["name"];
+                    $path = __DIR__."/../../../public_html/images/" . $_FILES["newfile"]["name"];
+                    $thumbPath = __DIR__."/../../../public_html/thumbs/" . $_FILES["newfile"]["name"];
 
 
                     if (file_exists($path)) {
