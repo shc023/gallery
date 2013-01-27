@@ -7,6 +7,13 @@ if ($debug) {
     error_reporting(E_ALL); // or E_STRICT
     ini_set("display_errors", 1);
     ini_set("memory_limit", "1024M");
+
+    // set error reporting level
+    if (version_compare(phpversion(), '5.3.0', '>=') == 1) {
+        error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+    } else {
+        error_reporting(E_ALL & ~E_NOTICE);
+    }
 }
 
 $app = new \Slim\Slim();
