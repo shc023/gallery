@@ -7,10 +7,11 @@ ini_set("display_errors",1);
 ini_set("memory_limit","1024M");
 
 // set error reporting level
-if (version_compare(phpversion(), '5.3.0', '>=') == 1)
-  error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
-else
-  error_reporting(E_ALL & ~E_NOTICE);
+if (version_compare(phpversion(), '5.3.0', '>=') == 1) {
+    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+} else {
+    error_reporting(E_ALL & ~E_NOTICE);
+}
 
 function bytesToSize1024($bytes, $precision = 2) {
     $unit = array('B','KB','MB');
