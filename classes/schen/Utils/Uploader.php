@@ -54,7 +54,7 @@ class Uploader
             $source_name = $_FILES['newfile']['name'];
             $source_tmp_path = $_FILES["newfile"]["tmp_name"];
             $source_type = $_FILES['newfile']['type'];
-            $source_size = $this->bytesToSize1024($_FILES['myfile']['size'], 1);
+            $source_size = $this->bytesToSize1024($_FILES['newfile']['size'], 1);
             $source_ext = end(explode(".", $source_name));
 
             if (($source_size < 10485760) && in_array($source_ext, $this->allowedExtensions)) {
