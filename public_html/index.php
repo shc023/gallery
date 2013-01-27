@@ -1,5 +1,6 @@
 <?php
-require '../vendor/autoload.php';
+
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 $app = new \Slim\Slim();
 
@@ -9,7 +10,7 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/info', function () use ($app) {
-    $app->render('phpinfo.php');
+    echo phpinfo();
 });
 
 $app->run();
