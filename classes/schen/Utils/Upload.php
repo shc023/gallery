@@ -4,19 +4,19 @@ namespace schen\Utils;
 
 class Uploader
 {
+
+    public function bytesToSize1024($bytes, $precision = 2)
+    {
+        $unit = array('B', 'KB', 'MB');
+        return @round($bytes / pow(1024, ($i = floor(log($bytes, 1024)))), $precision) . ' ' . $unit[$i];
+    }
+
     public function upload()
     {
-
-        function bytesToSize1024($bytes, $precision = 2)
-        {
-            $unit = array('B', 'KB', 'MB');
-            return @round($bytes / pow(1024, ($i = floor(log($bytes, 1024)))), $precision) . ' ' . $unit[$i];
-        }
-
         if (isset($_FILES['newfile'])) {
             $sFileName = $_FILES['newfile']['name'];
             $sFileType = $_FILES['newfile']['type'];
-            $sFileSize = bytesToSize1024($_FILES['myfile']['size'], 1);
+            $sFileSize = $this->bytesToSize1024($_FILES['myfile']['size'], 1);
 
             $allowedExts = array("jpg", "JPG", "jpeg", "JPEG", "png", "PNG");
             $allowedTypes = array("image/gif", "image/jpeg", "image/png", "image/pjpeg");
