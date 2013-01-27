@@ -1,5 +1,5 @@
 {
-    "hash": "3572ef5486e01be41b96a1fdace500a6",
+    "hash": "1cbd96f2ea487eff070aa4002d0090a5",
     "packages": [
         {
             "name": "slim/slim",
@@ -20,7 +20,6 @@
             },
             "time": "2012-12-13 02:15:50",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Slim": "."

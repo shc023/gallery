@@ -1,6 +1,6 @@
 // variables
 var dropArea = document.getElementById('dropArea');
-var destinationUrl = "../classes/upload.php";
+var destinationUrl = "/upload";
 var list = [];
 var totalSize = 0;
 var totalProgress = 0;
