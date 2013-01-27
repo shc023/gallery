@@ -1,5 +1,14 @@
 {
+    "name":"schen/gallery",
+    "description":"An image upload and gallery service",
+    "authors": [
+        {"name":"Scott Chen","email":""}
+    ],
     "require": {
+        "php":">=5.3.0",
         "slim/slim": "2.*"
+    },
+    "autoload": {
+        "psr-0": {"schen": "classes/"}
     }
 }
