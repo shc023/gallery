@@ -72,7 +72,7 @@ var totalProgress = 0;
 
         // prepare XMLHttpRequest
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', destinationUrl);
+        xhr.open('put', destinationUrl);
         xhr.onload = function() {
             //dropArea.innerHTML += this.responseText;
             $(dropArea).append(this.responseText);
