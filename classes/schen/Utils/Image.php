@@ -4,17 +4,6 @@ namespace schen\Utils;
 
 class Image
 {
-    public function normalizeType($type)
-    {
-        $type = strtolower($type);
-
-        if ($type === 'jpeg') {
-            $type = 'jpg';
-        }
-
-        return $type;
-    }
-
     /**
      * @return \Imagine\Image\ImagineInterface
      */
