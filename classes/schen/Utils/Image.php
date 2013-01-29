@@ -15,34 +15,57 @@ class Image
         return $type;
     }
 
-    function createThumb($pathToImages, $pathToThumbs, $type, $thumbWidth = 200)
+    /**
+     * @return \Imagine\Image\ImagineInterface
+     */
+    public function getImagine()
     {
-        $type = $this->normalizeType($type);
+        // hacky service configuration
+        global $config;
 
-        switch ($type) {
-            case "jpg":
-                $img = imagecreatefromjpeg($pathToImages);
-                $width = imagesx($img);
-                $height = imagesy($img);
+        $class = 'Imagine\\' . $config['imagine_class'] . '\\Imagine';
+=        return new $class();
+    }
 
-                $new_width = $thumbWidth;
-                $new_height = floor($height * ($thumbWidth / $width));
-                $tmp_img = imagecreatetruecolor($new_width, $new_height);
-                imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                imagejpeg($tmp_img, "$pathToThumbs");
-                break;
+    public function createThumb($pathToImages, $pathToThumbs, $type, $thumbWidth = 200)
+    {
+//        $type = $this->normalizeType($type);
 
-            case "png":
-                $img = imagecreatefrompng($pathToImages);
-                $width = imagesx($img);
-                $height = imagesy($img);
+        $image = $imagine = $this->getImagine()->open($pathToImages);
+        $size = $image->getSize();
 
-                $new_width = $thumbWidth;
-                $new_height = floor($height * ($thumbWidth / $width));
-                $tmp_img = imagecreatetruecolor($new_width, $new_height);
-                imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                imagepng($tmp_img, "$pathToThumbs");
-                break;
+        if ($size->getWidth() > $thumbWidth) {
+            $new_size = $size->scale($thumbWidth / $size->getWidth());
+        } else {
+            $new_size = $size;
         }
+
+        $image->resize($new_size)->save($pathToThumbs);
+
+//        switch ($type) {
+//            case "jpg":
+//                $img = imagecreatefromjpeg($pathToImages);
+//                $width = imagesx($img);
+//                $height = imagesy($img);
+//
+//                $new_width = $thumbWidth;
+//                $new_height = floor($height * ($thumbWidth / $width));
+//                $tmp_img = imagecreatetruecolor($new_width, $new_height);
+//                imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//                imagejpeg($tmp_img, "$pathToThumbs");
+//                break;
+//
+//            case "png":
+//                $img = imagecreatefrompng($pathToImages);
+//                $width = imagesx($img);
+//                $height = imagesy($img);
+//
+//                $new_width = $thumbWidth;
+//                $new_height = floor($height * ($thumbWidth / $width));
+//                $tmp_img = imagecreatetruecolor($new_width, $new_height);
+//                imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//                imagepng($tmp_img, "$pathToThumbs");
+//                break;
+//        }
     }
 }
