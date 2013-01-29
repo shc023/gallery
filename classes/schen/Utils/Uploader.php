@@ -78,7 +78,7 @@ class Uploader
                         $thumbWidth = min($width, 200);
 
                         $image = new Image();
-                        $image->createThumb($target_path, $target_thumb_path, $source_ext, $thumbWidth);
+                        $image->createThumb($target_path, $target_thumb_path, $thumbWidth);
                     }
                 }
             } else {
