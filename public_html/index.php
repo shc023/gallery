@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../configs/config.php');
 
-if ($debug) {
+if ($config['debug']) {
     error_reporting(E_ALL); // or E_STRICT
     ini_set("display_errors", 1);
     ini_set("memory_limit", "1024M");
@@ -27,8 +27,8 @@ $app->get('/info', function () use ($app) {
 });
 
 // Handle an upload!
-$app->post('/upload', function() use ($app){
-    $uploader = new schen\Utils\Uploader();
+$app->post('/upload', function() use ($app, $config){
+    $uploader = new schen\Utils\Uploader(__DIR__, $config['upload_image_dir'], $config['upload_thumb_dir']);
     echo $uploader->upload();
 });
 

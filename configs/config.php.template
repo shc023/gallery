@@ -1,3 +1,6 @@
 <?php
 
-$debug = true;
+$config['debug'] = true;
+
+$config['upload_image_dir'] = realpath(__DIR__ . '/../public_html/images');
+$config['upload_thumb_dir'] = realpath(__DIR__ . '/../public_html/images/thumbs');
