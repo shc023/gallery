@@ -24,7 +24,7 @@ class Image
         global $config;
 
         $class = 'Imagine\\' . $config['imagine_class'] . '\\Imagine';
-=        return new $class();
+        return new $class();
     }
 
     public function createThumb($pathToImages, $pathToThumbs, $type, $thumbWidth = 200)
